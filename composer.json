@@ -1,0 +1,25 @@
+{
+    "name": "ahmetbarut/laravel-route-docs",
+    "type": "package",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "ahmetbarut\\LaravelRouteDocs\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ahmet Barut",
+            "email": "ahmetbarut588@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ahmetbarut\\LaravelRouteDocs\\LaravelRouteDocsProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
