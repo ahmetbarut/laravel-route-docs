@@ -4,6 +4,7 @@ namespace ahmetbarut\LaravelRouteDocs;
 
 use Illuminate\Console\Command;
 use Illuminate\Routing\Router;
+use ahmetbarut\LaravelRouteDocs\Template\Markdown;
 
 class RouteDocsCommand extends Command
 {
@@ -12,7 +13,7 @@ class RouteDocsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'route:docs';
+    protected $signature = 'route:docs {path?}';
 
     /**
      * The console command description.
@@ -21,7 +22,7 @@ class RouteDocsCommand extends Command
      */
     protected $description = 'Generate route documentation';
 
-    public $routes;
+    public Matcher $routes;
 
     /**
      * Create a new command instance.
@@ -42,7 +43,11 @@ class RouteDocsCommand extends Command
      */
     public function handle()
     {
-        dd($this->routes->getDetails());
+        $path = $this->argument('path') ?? './docs/routes.md';
+
+        $matcher = new Markdown();
+        $matcher->write($this->routes->getDetails(), $path);
+
         return 0;
     }
 }

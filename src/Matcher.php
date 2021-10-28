@@ -41,6 +41,7 @@ class Matcher
 
                 }
                 $array[] = [
+                    'name' => $route->getName(),
                     'uri' => $route->uri(),
                     'methods' => $route->methods(),
                     'isCallback' => ($route->getAction('controller') === null),

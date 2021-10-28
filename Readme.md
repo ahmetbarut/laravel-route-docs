@@ -2,8 +2,7 @@
 Maybe we are wondering where these routes lead or what could be their purpose?
 This package decides to solve this solution.
 
-The package provide us the `fix` thing, the `BlogBlock` improvement` for the route.
-
+The package allows us to easily retrieve documents using `docBlock` comments
 way of working:
 
 ```php
