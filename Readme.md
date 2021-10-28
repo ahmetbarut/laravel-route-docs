@@ -31,6 +31,11 @@ Usage inside the controller
         return 'Hello Docs !';    
     }
 ```
+# Install
+```shell
+composer require ahmetbarut/laravel-route-docs
+```
+
 And then by executing `php artisan route:docs` the documentation is created.
 
 # Arguments
