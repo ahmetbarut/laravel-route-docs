@@ -32,3 +32,10 @@ Usage inside the controller
     }
 ```
 And then by executing `php artisan route:docs` the documentation is created.
+
+# Arguments
+This package currently only outputs markdown.
+`path` is available, for this it should be written as `php artisan route:docs /path/to`.
+
+# ! Tip
+If no default directory is specified, it will look for the `docs' folder in the root directory and generate an error if it cannot find it.
