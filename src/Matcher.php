@@ -1,13 +1,12 @@
 <?php
 
-namespace ahmetbarut\LaravelRouteDocs;
+namespace AhmetBarut\LaravelRouteDocs;
 
-use App\Console\Commands\RouteCommand;
 use Illuminate\Routing\Router;
 
 class Matcher
 {
-    public \Illuminate\Routing\Router $route;
+    public Router $route;
 
     public array $requestMethods = [];
 
@@ -59,8 +58,7 @@ class Matcher
 
     public function getDocComment($text): mixed
     {
-        preg_match_all('/[a-zA-Z0-9\@\-_\\\\]+/mu', $text, $res);
-
+        preg_match_all('/[a-zA-Z0-9öÖçÇğĞİşŞüÜı\@\-_\\\\]+/mu', $text, $res);
         return preg_replace_callback('#@route-doc(.*)@end-doc#', function ($matched){
             return($matched[1]);
         }, implode(' ', $res[0]));

@@ -4,7 +4,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "ahmetbarut\\LaravelRouteDocs\\": "src/"
+            "AhmetBarut\\LaravelRouteDocs\\": "src/"
         }
     },
     "authors": [
@@ -13,13 +13,16 @@
             "email": "ahmetbarut588@gmail.com"
         }
     ],
+    "require": {
+        "php": "7.4 || >=8",
+        "laravel/framework": ">=v8.0.0"
+    },
     "extra": {
         "laravel": {
             "providers": [
-                "ahmetbarut\\LaravelRouteDocs\\LaravelRouteDocsProvider"
+                "AhmetBarut\\LaravelRouteDocs\\LaravelRouteDocsServiceProvider"
             ]
         }
     },
-    "minimum-stability": "dev",
-    "require": {}
+    "minimum-stability": "dev"
 }

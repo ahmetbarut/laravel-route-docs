@@ -1,10 +1,10 @@
 <?php
 
-namespace ahmetbarut\LaravelRouteDocs;
+namespace AhmetBarut\LaravelRouteDocs;
 
 use Illuminate\Console\Command;
 use Illuminate\Routing\Router;
-use ahmetbarut\LaravelRouteDocs\Template\Markdown;
+use AhmetBarut\LaravelRouteDocs\Template\Markdown;
 
 class RouteDocsCommand extends Command
 {

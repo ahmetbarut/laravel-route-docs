@@ -1,49 +1,76 @@
 <?php
 
-namespace ahmetbarut\LaravelRouteDocs\Template;
+namespace AhmetBarut\LaravelRouteDocs\Template;
 
-use ahmetbarut\LaravelRouteDocs\Template\ITemplate;
+use AhmetBarut\LaravelRouteDocs\Template\ITemplate;
 
 class Markdown implements ITemplate
 {
-    protected $path;
+    protected string $path = __DIR__;
 
     protected array $text = [];
 
-    private string $stubText = "### {{route_name}}\n**{{uri}}**\n**{{method}}**\n\n{{description}}\n<hr>\n\n";
-
     public function write($data, $path = './docs/routes.md')
     {
+        $stubText = file_get_contents(dirname($this->path) . '/stubs.md');
         $allText = '';
-        foreach ($data as $key => $rp)
+        foreach ($data as $route)
         {
-            $text = $this->stubText;
-            $text = $this->replaceRouteName($rp['name'] ?? 'Undefined', $text);
-            $text = $this->replaceRouteUri($rp['uri'], $text);
-            $text = $this->replaceRouteMethod(implode(', ', $rp['methods']), $text);
-            $text = $this->replaceRouteDescription($rp['comment'], $text);
+            $text = $stubText;
+            $text = $this->replaceRouteName(trim($route['name']) ?? 'Undefined', $text);
+            $text = $this->replaceRouteUri(trim($route['uri']), $text);
+            $text = $this->replaceRouteMethod(trim(implode(', ', $route['methods'])), $text);
+            $text = $this->replaceRouteDescription(trim($route['comment']), $text);
 
             $allText .= $text;
          }
         file_put_contents($path, $allText);
     }
 
-    public function replaceRouteName($replace, $text, $search = '{{route_name}}')
+    /**
+     * Replace route name.
+     * @param $replace
+     * @param $text
+     * @param string $search
+     * @return array|string|string[]
+     */
+    public function replaceRouteName($replace, $text, string $search = '{{route_name}}')
     {
         return str_replace($search, $replace, $text);
     }
 
-    public function replaceRouteUri($replace, $text, $search = '{{uri}}')
+    /**
+     * Replace route uri.
+     * @param $replace
+     * @param $text
+     * @param string $search
+     * @return array|string|string[]
+     */
+    public function replaceRouteUri($replace, $text, string $search = '{{uri}}')
     {
         return str_replace($search, $replace, $text);
     }
 
-    public function replaceRouteDescription($replace, $text, $search = '{{description}}')
+    /**
+     * Replace route description.
+     * @param $replace
+     * @param $text
+     * @param string $search
+     * @return array|string|string[]
+     */
+    public function replaceRouteDescription($replace, $text, string $search = '{{description}}')
     {
         return str_replace($search, $replace, $text);
     }
 
-    public function replaceRouteMethod($replace, $text, $search = '{{method}}')
+    /**
+     * Replace route methods.
+     * @param $replace
+     * @param $text
+     * @param string $search
+     * @return array|string|string[]
+     */
+    public function replaceRouteMethod($replace, $text, string $search = '{{method}}')
     {
         return str_replace($search, $replace, $text);
     }

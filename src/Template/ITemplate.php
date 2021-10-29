@@ -1,6 +1,6 @@
 <?php
 
-namespace ahmetbarut\LaravelRouteDocs\Template;
+namespace AhmetBarut\LaravelRouteDocs\Template;
 
 interface ITemplate
 {

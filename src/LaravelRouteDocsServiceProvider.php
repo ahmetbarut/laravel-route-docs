@@ -1,10 +1,10 @@
 <?php
 
-namespace ahmetbarut\LaravelRouteDocs;
+namespace AhmetBarut\LaravelRouteDocs;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelRouteDocsProvider extends ServiceProvider
+class LaravelRouteDocsServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
