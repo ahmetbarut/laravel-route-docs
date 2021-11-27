@@ -44,7 +44,9 @@ class RouteDocsCommand extends Command
     public function handle()
     {
         $path = $this->argument('path') ?? './docs/routes.md';
-
+        if (!is_dir(dirname($path))) {
+            mkdir(dirname($path), 0777, false);
+        }
         $matcher = new Markdown();
         $matcher->write($this->routes->getDetails(), $path);
 

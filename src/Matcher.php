@@ -3,6 +3,8 @@
 namespace AhmetBarut\LaravelRouteDocs;
 
 use Illuminate\Routing\Router;
+use ReflectionMethod;
+use ReflectionParameter;
 
 class Matcher
 {
@@ -27,7 +29,6 @@ class Matcher
 
         foreach ($this->route->getRoutes()->getRoutes() as $route) {
 
-
             if ($route->getPrefix() !== '_ignition')
             {
                 if ($route->getAction('controller') === null)
@@ -50,13 +51,18 @@ class Matcher
                         'prefix' => $route->getAction('prefix'),
                     ],
                     'comment' => $this->getDocComment($reflection->getDocComment()),
+                    'method' => [
+                        'name' => $reflection->getName(),
+                        'parameters' => $this->getParameters($reflection->getParameters()),
+                        'return' => $reflection->getReturnType(),
+                    ],
                 ];
             }
         }
         return $array;
     }
 
-    public function getDocComment($text): mixed
+    public function getDocComment($text)
     {
         preg_match_all('/[a-zA-Z0-9öÖçÇğĞİşŞüÜı\@\-_\\\\]+/mu', $text, $res);
         return preg_replace_callback('#@route-doc(.*)@end-doc#', function ($matched){
@@ -71,4 +77,24 @@ class Matcher
         $this->resolveMethod = $explode[1];
     }
 
+    public function getParameters(array $parameters): array
+    {
+        $array = [];
+        foreach ($parameters as $parameter) {
+            $array[] = [
+                'name' => $parameter->getName(),
+                'type' => $parameter->getType()->getName(),
+                'isOptional' => $parameter->isOptional(),
+                'default' => $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null,
+            ];
+        }
+        return $array;
+    }
+
+    public function getReturn($reflection): array
+    {
+        return [
+            'type' => $reflection->getName(),
+        ];
+    }
 }

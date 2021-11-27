@@ -1,6 +1,7 @@
 ### # {{route_name}}
 #### # {{uri}}
-#### # {{method}}
+#### # {{RequestMethod}}
+#### # {{method}} {{parameters}} {{return_type}}
 {{description}}
 
 ---------------------------
