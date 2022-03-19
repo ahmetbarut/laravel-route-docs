@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">=7.4 || 8.*",
-        "laravel/framework": ">=v8.*"
+        "laravel/framework": ">=7.* || >=v8.*"
     },
     "extra": {
         "laravel": {
