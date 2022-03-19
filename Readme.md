@@ -1,4 +1,5 @@
 # Laravel Route Documentation
+
 Maybe we are wondering where these routes lead or what could be their purpose?
 This package decides to solve this solution.
 
@@ -15,6 +16,7 @@ way of working:
         return 'Hello Docs'; 
     });
 ```
+
 Usage inside the controller
 
 ```php
@@ -31,16 +33,20 @@ Usage inside the controller
         return 'Hello Docs !';    
     }
 ```
-# Install
+
+## Install
+
 ```shell
 composer require ahmetbarut/laravel-route-docs
 ```
 
 And then by executing `php artisan route:docs` the documentation is created.
 
-# Arguments
+## Arguments
+
 This package currently only outputs markdown.
 `path` is available, for this it should be written as `php artisan route:docs /path/to`.
 
-# ! Tip
+## \!Tip
+
 If no default directory is specified, it will look for the `docs' folder in the root directory and generate an error if it cannot find it.

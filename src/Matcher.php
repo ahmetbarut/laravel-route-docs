@@ -34,7 +34,7 @@ class Matcher
                     $reflection = new \ReflectionFunction($route->getAction('uses'));
                 } else {
                     $this->resolve($route->getAction('uses'));
-                    $reflection = new \ReflectionMethod(new $this->resolveController, $this->resolveMethod);
+                    $reflection = new \ReflectionMethod(new $this->resolveController(app('request'), app('App\Repositories\TenantRepository')), $this->resolveMethod);
                 }
                 $array[] = [
                     'name' => $route->getName(),
@@ -79,7 +79,7 @@ class Matcher
         foreach ($parameters as $parameter) {
             $array[] = [
                 'name' => $parameter->getName(),
-                'type' => $parameter->getType()->getName(),
+                'type' => $parameter->getType()?->getName(),
                 'isOptional' => $parameter->isOptional(),
                 'default' => $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null,
             ];
