@@ -29,16 +29,12 @@ class Matcher
 
         foreach ($this->route->getRoutes()->getRoutes() as $route) {
 
-            if ($route->getPrefix() !== '_ignition')
-            {
-                if ($route->getAction('controller') === null)
-                {
+            if ($route->getPrefix() !== '_ignition') {
+                if ($route->getAction('controller') === null) {
                     $reflection = new \ReflectionFunction($route->getAction('uses'));
-
-                }else{
+                } else {
                     $this->resolve($route->getAction('uses'));
                     $reflection = new \ReflectionMethod(new $this->resolveController, $this->resolveMethod);
-
                 }
                 $array[] = [
                     'name' => $route->getName(),
@@ -65,8 +61,8 @@ class Matcher
     public function getDocComment($text)
     {
         preg_match_all('/[a-zA-Z0-9öÖçÇğĞİşŞüÜı\@\-_\\\\]+/mu', $text, $res);
-        return preg_replace_callback('#@route-doc(.*)@end-doc#', function ($matched){
-            return($matched[1]);
+        return preg_replace_callback('#@route-doc(.*)@end-doc#', function ($matched) {
+            return ($matched[1]);
         }, implode(' ', $res[0]));
     }
 

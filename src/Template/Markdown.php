@@ -6,26 +6,63 @@ use AhmetBarut\LaravelRouteDocs\Template\ITemplate;
 
 class Markdown implements ITemplate
 {
+    /**
+     * Storing the template.
+     * @var string
+     */
     protected string $path = __DIR__;
 
+    /**
+     * Storing get texts.
+     * @var string
+     */
     protected array $text = [];
 
-    public function write($data, $path = './docs/routes.md')
+    /**
+     * Writing the template.
+     * @param array $data
+     * @param string $path
+     * @return void
+     */
+    public function write($data, $path = './docs/routes.md'): void
     {
         $stubText = file_get_contents(dirname($this->path) . '/stubs.md');
         $allText = '';
-        foreach ($data as $route)
-        {
+        foreach ($data as $route) {
             $text = $stubText;
-            $text = $this->replaceRouteName(trim($route['name']) ?? 'Undefined', $text);
-            $text = $this->replaceRouteUri(trim($route['uri']), $text);
-            $text = $this->replaceRouteRequestMethod(trim(implode(', ', $route['methods'])), $text);
-            $text = $this->replaceRouteDescription(trim($route['comment']), $text);
-            $text = $this->replaceMethod($route['method']['name'], $text);
-            $text = $this->replaceParameter($route['method']['parameters'], $text);
-            $text = $this->replaceReturnType($route['method']['return'], $text);
+            $text = $this->replaceRouteName(
+                trim($route['name'] ?? 'null'),
+                $text
+            );
+            $text = $this->replaceRouteUri(
+                trim($route['uri']),
+                $text
+            );
+            $text = $this->replaceRouteRequestMethod(
+                trim(implode(', ', $route['methods'])),
+                $text
+            );
+            $text = $this->replaceRouteDescription(
+                trim($route['comment']),
+                $text
+            );
+            $text = $route['isCallback'] ? $this->replaceCallback(
+                $route['method']['name'],
+                $text
+            ) : $this->replaceMethod(
+                $route,
+                $text
+            );
+            $text = $this->replaceParameter(
+                $route['method']['parameters'],
+                $text
+            );
+            $text = $this->replaceReturnType(
+                $route['method']['return'],
+                $text
+            );
             $allText .= $text;
-         }
+        }
         file_put_contents($path, $allText);
     }
 
@@ -79,7 +116,22 @@ class Markdown implements ITemplate
 
     public function replaceMethod($replace, $text, string $search = '{{method}}')
     {
-        return str_replace($search, $replace, $text);
+        return str_replace(
+            $search,
+            $replace['action']['uses'],
+            $text
+        );
+    }
+
+    public function replaceCallback($replace, $text)
+    {
+        // function(): void
+        // index(): void
+        return str_replace(
+            "{{method}}",
+            "callback@function",
+            $text
+        );
     }
 
     public function replaceParameter($replace, $text, string $search = '{{parameters}}')
